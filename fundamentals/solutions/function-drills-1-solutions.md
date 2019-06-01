@@ -1,3 +1,4 @@
+```javascript
 'use strict';
 
 function getYearOfBirth(age) {
@@ -30,3 +31,5 @@ try {
 } catch(e) {
   console.error(e.message);
 }
+
+```

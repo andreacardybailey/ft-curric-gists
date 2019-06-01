@@ -1,27 +1,51 @@
-'use strict';
-// Object Initializers and Methods
+## Object Initializers and Methods
+
+```javascript
+const loaf = {
+  flour: 300,
+  water: 210
+};
+console.log("Flour:", loaf.flour);
+console.log("Water:", loaf.water);
+```
+
+```javascript
 const loaf = {
   flour: 300,
   water: 210,
-  hydration: function () {
-    return (this.water / this.flour) * 100;
+  hydration: function() {}
+};
+```
+
+```javascript
+const loaf = {
+  flour: 300,
+  water: 210,
+  hydration: function() {
+    return this.water / this.flour * 100;
   }
 };
-console.log('Hydration:', loaf.hydration());
+console.log("Hydration:", loaf.hydration());
+```
 
-// Iterating over an object's properties
+## Iterating over an object's properties
+
+```javascript
 const meta = {
-  foo: 'scram',
-  bar: 'whiskey',
-  fum: 'giant',
-  quux: 'steele',
-  spam: 'van rossum'
+  foo: "scram",
+  bar: "whiskey",
+  fum: "giant",
+  quux: "steele",
+  spam: "van rossum"
 };
 for (let name in meta) {
   console.log(name, meta[name]);
 }
+```
 
-// Arrays in objects
+## Arrays in objects
+
+```javascript
 const hobbit = {
   meals: [
     'breakfast',
@@ -34,19 +58,25 @@ const hobbit = {
   ]
 };
 console.log(hobbit.meals[3]);
+```
 
-// Arrays of objects
+## Arrays of objects
+
+```javascript
 const staff = [
-  { name: 'Roy', job_title: 'Off-And-On Again Guy' },
-  { name: 'Moss', job_title: 'Nerd' },
-  { name: 'Jen', job_title: 'IT manager' },
-  { name: 'Reynholm', job_title: 'Large Ham' }
+  {name: "Roy", job_title: "Off-And-On Again Guy"},
+  {name: "Moss", job_title: "Nerd"},
+  {name: "Jen", job_title: "IT manager"},
+  {name: "Reynholm", job_title: "Large Ham"},
 ];
 staff.forEach(employee => {
   console.log(employee.name, 'is the', employee.job_title);
 });
+```
 
-// Properties that aren't there
+## Properties that aren't there
+
+```javascript
 const otherStaff = [
   { name: 'Roy', job_title: 'Off-And-On Again Guy', boss: 'Jen' },
   { name: 'Moss', job_title: 'Nerd', boss: 'Jen' },
@@ -54,6 +84,18 @@ const otherStaff = [
   { name: 'Reynholm', job_title: 'Large Ham' }
 ];
 
+/**
+ * Using this solution - the owner (Reynholm) is shown as:
+ * "Large Ham Reynholm reports to undefined"
+ * 
+ * This is because looking up a property that doesn't
+ * exist yields the special value: `undefined`.
+ */
+otherStaff.forEach(employee => {
+  console.log(employee.job_title, employee.name, 'reports to', employee.boss);
+});
+
+// revised solution
 otherStaff.forEach(employee => {
   if (!employee.boss) {
     console.log(
@@ -65,14 +107,17 @@ otherStaff.forEach(employee => {
     console.log(employee.job_title, employee.name, 'reports to', employee.boss);
   }
 });
+```
 
-// Cracking the Code
-function decodeWords(words) {
+## Cracking the Code
+
+```javascript
+function decode(words){
   const cipher = {
     a: 2,
     b: 3,
     c: 4,
-    d: 5
+    d: 5  
   };
   const wordsArray = words.split(' ');
   const decodedChars = wordsArray.map(word => {
@@ -90,9 +135,11 @@ function decodeWords(words) {
 
   return decodedChars.join('');
 }
-console.log(decodeWords('craft block argon meter bells brown croon droop'));
+```
 
-// Functions with Lord Of The Rings
+## Factory Functions with LOTR (Lord of the Rings)
+
+```javascript
 // Create the factory function:
 function createCharacter(name, nickname, race, origin, attack, defense) {
   return {
@@ -125,7 +172,6 @@ function createCharacter(name, nickname, race, origin, attack, defense) {
 }
 
 // Create array of characters:
-
 const characters = [
   createCharacter('Gandalf the White', 'gandalf', 'Wizard', 'Middle Earth', 10, 6),
   createCharacter('Bilbo Baggins', 'bilbo', 'Hobbit', 'The Shire', 2, 1),
@@ -140,7 +186,6 @@ characters.push(
 );
 
 // Find character and call its `describe` method
-
 characters.find(character => character.nickname === 'aragorn').describe();
 
 // Create array of only hobbits:
@@ -150,10 +195,16 @@ console.log(onlyHobbits);
 // Create array of only high attack characters:
 const onlyHighAttack = characters.filter(character => character.attack > 5);
 console.log(onlyHighAttack);
+```
 
-// Database Search
-// This solution aims to perform the least iterations necessary for best performance, exiting a loop at earliest known moment where further searching is not necessary. It implements the continue and break keywords.
-const findOne = function (arr, query) {
+## Database Search
+
+This solution aims to perform the **least** iterations necessary for best performance, exiting a loop at earliest known moment where further searching is not necessary. It implements the [`continue`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/continue) and [`break`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break) keywords.
+
+```javascript
+const findOne = function(arr, query) {
+  // See for-of loops - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+
   // Iterates through array placing current element in locally scoped variable `hero`
   for (const hero of arr) {
     let assumeMatch = true;
@@ -174,16 +225,18 @@ const findOne = function (arr, query) {
   // heroes array was exited without a match so return null
   return null;
 };
+```
+## Bonus Database Method
 
-// Bonus Database Method
+Same `findOne` solution as above, except we loop through `this.store.heroes` and place the function on the `Database` object.
+
+```js
 const Database = {
   store: {
-    heroes: [
-      /* {}, {}, {} */
-    ]
+    heroes: [ /* {}, {}, {} */ ]
   },
 
-  findOne: function (query) {
+  findOne: function(query) {
     for (const hero of this.store.heroes) {
       let assumeMatch = true;
 
@@ -193,12 +246,13 @@ const Database = {
           break;
         }
       }
-
+      
       if (!assumeMatch) continue;
-
+      
       return hero;
     }
 
     return null;
   }
 };
+```

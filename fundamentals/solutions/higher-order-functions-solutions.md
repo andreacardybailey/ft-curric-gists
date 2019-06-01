@@ -1,10 +1,8 @@
-'use strict';
-/**
-PLEASE LOOK AT THESE SOLUTIONS *ONLY* AFTER YOU HAVE COMPLETED
-THE DRILLS TO COMPARE YOUR METHOD.  
- **/
+Please look at these solutions ONLY after you have completed the drills, to compare your work.
 
-// Functions as arguments (1)
+## Functions as arguments (1)
+
+```js
 function repeat(fn, n) {
   for (let i=0; i<n; i++) {
     fn();
@@ -16,9 +14,11 @@ function sayHello() {
 }
 
 repeat(sayHello, 10);
+```
 
+## Functions as arguments (2)
 
-// Functions as arguments (2)
+```js
 function filter(arr, fn){
   const newArr = [];
   for (let i = 0; i < arr.length; i++) {
@@ -37,16 +37,21 @@ const filteredNames = filter(myNames, function(name) {
 });
 
 console.log(filteredNames) // => ['Rich', 'Ray']
+
 // bonus one-liner:
 console.log(filter(myNames, name => name[0] === 'R'));
+```
 
-// Functions as return values
+## Functions as return values
+
+```js
 function hazardWarningCreator(typeOfWarning){
   let warningCounter = 0;
   return location => {
     warningCounter++;
     console.log(`DANGER! There is a ${typeOfWarning} hazard at ${location}!`);
-    // console.log(`The ${typeOfWarning} has triggered ${warningCounter} times.`);
+    console.log(`The ${typeOfWarning} has triggered ${warningCounter} times.`);
+    
     // bonus:
     console.log(`The ${typeOfWarning} has triggered ${warningCounter} ${warningCounter === 1 ? 'time' : 'times'}.`);
   };
@@ -58,8 +63,12 @@ const godzillaWarning = hazardWarningCreator('Godzilla on the Loose');
 rocksWarning('Main St');
 rocksWarning('Smith Ave');
 godzillaWarning('King\'s Road');
+```
 
-// forEach, filter, map
+## forEach, filter, map
+
+```js
+// map
 let movements = [[0, 0], [0, 5], [-1, -3], [-3, 1], [2, -4], [3, 2]];
 movements = movements.filter(movement => movement[0] >= 0 && movement[1] >= 0);
 
@@ -69,7 +78,7 @@ distances.forEach(distance => {
   console.log(distance);
 });
 
-// reduce
+//reduce
 const words = 'noggin oreo the moon time tele steed his tent apollo her lives though shoo tofu budapest';
 
 const wordsAry = words.split(' ');
@@ -80,9 +89,9 @@ const decoded = wordsAry.reduce((decodedString,word) => {
   else {
     return decodedString + word[word.length-1].toUpperCase();
   }
-}, '');
+}, ''); // set '' as the initiaValue
 
 console.log(decoded);
-
-// example of initialValue:
+// For more information on using initialValue with reduce:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#examples
+```
